@@ -13,12 +13,22 @@ export default class CourseDetail extends Component {
   };
 
   getCourse = () => {
-    this.props.context.actions.getCourse(`/courses/${this.props.match.params.id}`, 'GET')
-    .then(responseData => this.setState({course: responseData}))
+    this.props.context.data.getCourses(`/courses/${this.props.match.params.id}`, 'GET')
+    .then(responseData => {
+      if(responseData !== null) {
+        this.setState({course: responseData})
+      } else {
+        this.props.history.push('/notfound')
+      }
+    }).catch(err => {
+        this.props.history.push('/error')
+    })
   }
 
-  deleteCourse = (emailAddress, password) => {
+  deleteCourse = () => {
+    const {emailAddress, password } = this.props.context
     this.props.context.data.deleteCourse(`/courses/${this.props.match.params.id}`, emailAddress, password )
+    .then(()=>{this.props.history.push('/')})
   }
 
   render() {
@@ -34,8 +44,8 @@ export default class CourseDetail extends Component {
       courseDescription = course.description
       courseMaterials = course.materialsNeeded
 
-          content =
-            <div>
+      content =
+        <div>
               <div className="actions--bar">
                 <div className="bounds">
                   <div className="grid-100">
@@ -44,7 +54,7 @@ export default class CourseDetail extends Component {
                         <React.Fragment>
                           <span>
                             <Link className="button" to={`/courses/${course.id}/update`}>Update Course</Link>
-                            <Link onClick={() => this.deleteCourse(this.props.context.emailAddress, this.props.context.password)} className="button" to={'/'}>Delete Course</Link>
+                            <Link onClick={this.deleteCourse} to='#' className="button">Delete Course</Link>
                           </span>
                         </React.Fragment>
                         :
@@ -83,8 +93,8 @@ export default class CourseDetail extends Component {
                   </div>
                 </div>
               </div>
-            </div>
-          }
+        </div>
+    }
 
     return(
       <div>

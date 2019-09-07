@@ -14,6 +14,9 @@ import UserSignIn from './components/UserSignIn.js'
 import UserSignUp from './components/UserSignUp.js'
 import UserSignOut from './components/UserSignOut.js'
 import PrivateRoute from './PrivateRoute.js'
+import NotFound from './components/NotFound.js'
+import forbidden from './components/forbidden.js'
+import error from './components/error.js'
 import withContext from './Context.js'
 
 const HeaderWithContext = withContext(Header);
@@ -39,6 +42,10 @@ export default () => {
           <Route path="/signin" component={userSignInWithContext} />
           <Route path="/signup" component={userSignUpWithContext} />
           <Route path="/signout" component={userSignOutWithContext} />
+          <Route path="/notfound" component={NotFound} />
+          <Route path="/forbidden" component={forbidden} />
+          <Route path="/error" component={error} />
+          <Route component={NotFound} />
         </Switch>
       </div>
     </Router>

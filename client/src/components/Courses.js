@@ -15,6 +15,9 @@ class Courses extends Component {
   getCourses =  () => {
     this.props.context.data.getCourses('/courses', 'GET')
     .then(responseData => this.setState({courses: responseData}))
+    .catch(err => {
+        this.props.history.push('/error')
+    })
   }
 
 
@@ -27,7 +30,7 @@ class Courses extends Component {
             <h3 className="course--title">{course.title}</h3>
           </Link></div>
     )})
-    console.log(courses)
+
     return (
         <div className="bounds">
             {courses}

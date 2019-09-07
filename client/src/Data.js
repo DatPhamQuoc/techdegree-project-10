@@ -29,6 +29,8 @@ export default class Data {
       return response.json();
     } else if (response.status === 401) {
       return null
+    } else {
+      throw new Error();
     }
   }
 
@@ -53,6 +55,8 @@ export default class Data {
       return response.json().then(data => {
         return null
       })
+    } else {
+      throw new Error();
     }
   }
 
@@ -64,11 +68,16 @@ export default class Data {
       return response.json().then(data => {
          return data.errors.map(error => error)
     })
+    } else {
+      throw new Error();
     }
   }
 
   async deleteCourse(endpoint, emailAddress, password) {
-    await this.api(endpoint, 'DELETE', null, true, { emailAddress, password })
+    const response =await this.api(endpoint, 'DELETE', null, true, { emailAddress, password })
+    if(response.status !== 204 && response.status !== 403){
+      throw new Error();
+    }
   }
 
 
@@ -79,7 +88,9 @@ export default class Data {
     }else if (response.status === 400) {
       return response.json().then(data => {
          return data.errors.map(error => error)
-    })
+       })
+    } else {
+      throw new Error();
     }
   }
 };

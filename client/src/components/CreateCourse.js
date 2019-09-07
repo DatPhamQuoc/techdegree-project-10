@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import Form from './Form.js'
 
 
@@ -27,7 +26,6 @@ export default class CreateCourse extends Component {
       description,
       estimatedTime,
       materialsNeeded,
-      errors
     } = this.state
 
     const course = {
@@ -46,6 +44,9 @@ export default class CreateCourse extends Component {
         this.props.history.push('/')
       }
     })
+    .catch(err => {
+        this.props.history.push('/error')
+    })
   }
 
   cancel = () => {
@@ -61,6 +62,7 @@ export default class CreateCourse extends Component {
       errors
     } = this.state
 
+    const {firstName, lastName} = this.props.context.authenticated
     return(
       <div className="bounds course--detail">
         <h1>Create Course</h1>
@@ -83,7 +85,7 @@ export default class CreateCourse extends Component {
                                 onChange={this.change}
                                 value={title}/>
                     </div>
-                    <p>By Joe Smith</p>
+                    <p>By {firstName} {lastName}</p>
                   </div>
                   <div className="course--description">
                     <div><textarea id="description"

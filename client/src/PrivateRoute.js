@@ -9,7 +9,10 @@ export default ({component: Component, ...rest}) =>{
           <Route {...rest} render = {props => context.authenticated ? (
               <Component {...props} />
             ) : (
-              <Redirect to='/signin' />
+              <Redirect to={{
+                pathname: '/signin',
+                state: { from: props.location }
+              }} />
             )}
         />
       )}

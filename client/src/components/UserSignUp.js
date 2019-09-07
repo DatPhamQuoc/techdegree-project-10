@@ -115,15 +115,26 @@ export default class UserSignIn extends Component {
       password
     };
 
-    context.data.createUser(user)
-      .then( errors => {
-        console.log(errors)
-        if(errors.length) {
-          this.setState({errors})
-        } else {
-          context.actions.signIn(emailAddress, password)
-        }
-      })
+    if(password === confirmPassword){
+      context.data.createUser(user)
+        .then( errors => {
+          if(errors.length) {
+            this.setState({errors})
+          } else {
+            context.actions.signIn(emailAddress, password)
+              .then(() => {
+                this.props.history.push('/');
+              })
+          }
+        })
+        .catch(err => {
+            this.props.history.push('/error')
+        })
+    }else {
+      const passwordNotMatch = ['Password doesn\'t match confirmation']
+      this.setState({errors: passwordNotMatch})
+    }
+
   }
 
   cancel = () => {

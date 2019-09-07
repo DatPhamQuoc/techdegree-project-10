@@ -1,13 +1,15 @@
 import React , {Component} from 'react';
 import Data from './Data.js';
+import Cookies from 'js-cookie';
 const Context = React.createContext();
 
 export class Provider extends Component {
+
   state = {
-    authenticated: null,
+    authenticated: Cookies.getJSON('authenticated') || null,
     emailAddress: null,
     password: null,
-    course: null
+    courseDetail: null
   }
 
   constructor() {
@@ -16,17 +18,15 @@ export class Provider extends Component {
   }
 
   render () {
-    const { authenticated, course, emailAddress, password } = this.state
+    const { authenticated,  emailAddress, password } = this.state
     const value = {
       authenticated,
       emailAddress,
       password,
-      course,
       data: this.data,
       actions: {
         signIn: this.signIn,
         signOut: this.signOut,
-        getCourse: this.getCourse
       }
     }
 
@@ -45,21 +45,16 @@ export class Provider extends Component {
         emailAddress,
         password
       })
+      Cookies.set('authenticated', JSON.stringify(user), { expires: 1 });
     }
     return user;
   }
 
   signOut = () => {
     this.setState({authenticated: null})
+    Cookies.remove('authenticated')
   }
 
-  getCourse = async (route, method) => {
-    const course = await this.data.getCourses(route, method);
-    if(course !== null){
-      this.setState({course})
-    }
-    return course;
-  }
 }
 
 export const Consumer = Context.Consumer;
