@@ -7,8 +7,8 @@ export class Provider extends Component {
 
   state = {
     authenticated: Cookies.getJSON('authenticated') || null,
-    emailAddress: null,
-    password: null,
+    emailAddress: Cookies.getJSON('emailAddress') || null,
+    password: Cookies.getJSON('password') || null,
     courseDetail: null
   }
 
@@ -45,7 +45,9 @@ export class Provider extends Component {
         emailAddress,
         password
       })
-      Cookies.set('authenticated', JSON.stringify(user), { expires: 1 });
+      Cookies.set('authenticated', JSON.stringify(user), { expires: 1 })
+      Cookies.set('emailAddress', JSON.stringify(emailAddress), { expires: 1 })
+      Cookies.set('password', JSON.stringify(password), { expires: 1 });
     }
     return user;
   }
@@ -53,6 +55,8 @@ export class Provider extends Component {
   signOut = () => {
     this.setState({authenticated: null})
     Cookies.remove('authenticated')
+    Cookies.remove('emailAddress')
+    Cookies.remove('password')
   }
 
 }

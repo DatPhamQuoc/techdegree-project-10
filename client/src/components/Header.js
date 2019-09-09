@@ -18,8 +18,8 @@ export default (props) => {
           :
           <React.Fragment>
             <nav>
+              <Link className="signin" to="/signup">Sign Up</Link>
               <Link className="signin" to="/signin">Sign In</Link>
-              <Link className="signout" to="/">Sign Out</Link>
             </nav>
           </React.Fragment>
         }

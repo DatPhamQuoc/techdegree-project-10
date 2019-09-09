@@ -18,8 +18,8 @@ export default class UpdateCourse extends Component {
   getCourse = () => {
     this.props.context.data.getCourses(`/courses/${this.props.match.params.id}`, 'GET')
     .then(responseData => {
-      if(this.props.context.authenticated.id === responseData.userId){
         if(responseData !== null) {
+          if(this.props.context.authenticated.id === responseData.userId){
           const {
             userId,
             title,
@@ -36,14 +36,14 @@ export default class UpdateCourse extends Component {
             materialsNeeded
           })
         } else {
-          this.props.history.push('/notfound')
+          this.props.history.push('/forbidden')
         }
       } else {
-        this.props.history.push('/forbidden')
+        this.props.history.push('/notfound')
       }
     })
     .catch(err => {
-        this.props.history.push('/error')
+      this.props.history.push('/error')
     })
   }
 
@@ -139,7 +139,7 @@ export default class UpdateCourse extends Component {
   }
 
   cancel = () => {
-    this.props.history.push('/')
+    this.props.history.goBack()
   }
 
   submit = () => {

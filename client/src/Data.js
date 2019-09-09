@@ -27,8 +27,6 @@ export default class Data {
     const response = await this.api(route, method , null);
     if(response.status === 200) {
       return response.json();
-    } else if (response.status === 401) {
-      return null
     } else {
       throw new Error();
     }
