@@ -53,6 +53,7 @@ export default class UserSignIn extends Component {
     )
   }
 
+  // Change state everytime input value updated
   change = (e) => {
     const { name, value }= e.target
     this.setState({
@@ -60,6 +61,7 @@ export default class UserSignIn extends Component {
     })
   }
 
+  // Submit and sign in
   submit = () => {
     const { context } = this.props
     const { from } = this.props.location.state || { from: { pathname:  this.props.history.goBack() } };
@@ -76,6 +78,7 @@ export default class UserSignIn extends Component {
       })
   }
 
+  // Cancel sign-in and redirect to main page
   cancel = () => {
     this.props.history.push('/')
   }

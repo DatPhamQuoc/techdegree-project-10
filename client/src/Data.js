@@ -1,7 +1,18 @@
 import config from './config.js'
 
 export default class Data {
-  api(path, method, body = null, requiresAuth = false, credentials) {
+
+
+  /**
+   * Getting data from back-end Rest API
+   * @param {string} path                       routing path
+   * @param {string} method                     method
+   * @param {Object} [body=null]                object pass to req.body
+   * @param {Boolean} [requiresAuth = false]    required Authentication ?
+   * @param {Object} [credentials = null]       credentials for authentication
+   * @return {Object}                           data from Rest API
+  */
+  api(path, method, body = null, requiresAuth = false, credentials=null) {
     const url =  config.apiBaseUrl + path;
 
     const options = {
@@ -23,6 +34,13 @@ export default class Data {
     return fetch(url, options)
   }
 
+
+  /**
+   * Getting Courses data from back-end Rest API
+   * @param {string} route              routing path
+   * @param {string} method             method
+   * @return {Promise}                  Courses data from Rest API
+  */
   async getCourses(route, method) {
     const response = await this.api(route, method , null);
     if(response.status === 200) {
@@ -32,6 +50,12 @@ export default class Data {
     }
   }
 
+
+  /**
+   * Create new User and post to Rest API
+   * @param {Object} user     User sign up Data
+   * @return {Promise}        Empty array or array of errors
+  */
   async createUser(user) {
     const response = await this.api('/users', 'POST', user)
     if(response.status === 201) {
@@ -45,6 +69,12 @@ export default class Data {
     }
   }
 
+  /**
+   * Getting User data from REST API
+   * @param {String} emailAddress   User sign in emailAddress
+   * @param {String} password       User sign in password
+   * @return {Promise}              User data or null
+  */
   async getUser(emailAddress, password) {
     const response = await this.api('/users', 'GET', null, true, { emailAddress, password });
     if(response.status === 200){
@@ -58,6 +88,14 @@ export default class Data {
     }
   }
 
+
+  /**
+   * Create mew Course to Rest API
+   * @param {Object} courses        Course information
+   * @param {String} emailAddress   emailAddress
+   * @param {String} password       password
+   * @return {Promise}              Empty array or errors
+  */
   async createCourse (course, emailAddress, password){
     const response  = await this.api('/courses', 'POST', course, true, { emailAddress, password })
     if(response.status == 201){
@@ -71,6 +109,14 @@ export default class Data {
     }
   }
 
+
+  /**
+   * Delte existing courses
+   * @param {String} endpoint       course to delete
+   * @param {String} emailAddress   emailAddress
+   * @param {String} password       password
+   * @return {Promise}
+  */
   async deleteCourse(endpoint, emailAddress, password) {
     const response =await this.api(endpoint, 'DELETE', null, true, { emailAddress, password })
     if(response.status !== 204 && response.status !== 403){
@@ -79,6 +125,14 @@ export default class Data {
   }
 
 
+  /**
+   * Update existing courses
+   * @param {String} endpoint       course to update
+   * @param {Object} course         data to update
+   * @param {String} emailAddress   emailAddress
+   * @param {String} password       password
+   * @return {Promise}              Empty array or errors
+  */
   async updateCourse(endpoint, course, emailAddress, password ) {
     const response = await this.api(endpoint, 'PUT', course, true, { emailAddress, password })
     if(response.status == 204){

@@ -1,5 +1,8 @@
 import React from 'react'
 
+/*
+General form 
+*/
 export default (props) => {
 
   const {
@@ -34,6 +37,7 @@ export default (props) => {
   )
 }
 
+// Errors display component
 function ErrorDisplay({errors}){
   let errorDisplay =  null;
 

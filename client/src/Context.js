@@ -3,6 +3,11 @@ import Data from './Data.js';
 import Cookies from 'js-cookie';
 const Context = React.createContext();
 
+
+/**
+ * Make a Provider class
+ * @type {Object}
+ */
 export class Provider extends Component {
 
   state = {
@@ -37,6 +42,12 @@ export class Provider extends Component {
     )
   }
 
+  /**
+   * Sign In and set cookies
+   * @param {String} emailAddress   emailAddress
+   * @param {String} password       password
+   * @return {Promise}              user data
+  */
   signIn = async (emailAddress, password) => {
     const user = await this.data.getUser(emailAddress, password)
     if(user !== null){
@@ -52,6 +63,11 @@ export class Provider extends Component {
     return user;
   }
 
+
+  /**
+   * Sign Out
+   * Remove all the existing cookies and change authenticated state to null
+  */
   signOut = () => {
     this.setState({authenticated: null})
     Cookies.remove('authenticated')
@@ -63,6 +79,11 @@ export class Provider extends Component {
 
 export const Consumer = Context.Consumer;
 
+/**
+* HOC for consumer components
+* @param {[type]} Component   Component that consumes state values
+* @return {[type]}            Component with props & context value
+*/
 export default function withContext(Component) {
   return function ContextComponent(props) {
     return (

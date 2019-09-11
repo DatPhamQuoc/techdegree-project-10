@@ -11,6 +11,7 @@ export default class CreateCourse extends Component {
     errors: []
   }
 
+  // Change the state everytime input value updated
   change = (e) => {
     const {name, value} = e.target
     this.setState({
@@ -18,6 +19,7 @@ export default class CreateCourse extends Component {
     })
   }
 
+  // Create course when submmited
   submit = () => {
     const {context} = this.props
     const {emailAddress, password} = context
@@ -49,6 +51,7 @@ export default class CreateCourse extends Component {
     })
   }
 
+  // Cancel and go back to the main page
   cancel = () => {
     this.props.history.push('/')
   }

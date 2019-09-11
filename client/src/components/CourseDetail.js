@@ -12,6 +12,7 @@ export default class CourseDetail extends Component {
     this.getCourse();
   };
 
+  // Fetch courses data from REST API
   getCourse = () => {
     this.props.context.data.getCourses(`/courses/${this.props.match.params.id}`, 'GET')
     .then(responseData => {
@@ -25,6 +26,7 @@ export default class CourseDetail extends Component {
     })
   }
 
+  // Delete existing course
   deleteCourse = () => {
     const {emailAddress, password } = this.props.context
     this.props.context.data.deleteCourse(`/courses/${this.props.match.params.id}`, emailAddress, password )
@@ -49,6 +51,7 @@ export default class CourseDetail extends Component {
               <div className="actions--bar">
                 <div className="bounds">
                   <div className="grid-100">
+
                     {
                       authenticated && authenticated.id == course.userId ?
                         <React.Fragment>

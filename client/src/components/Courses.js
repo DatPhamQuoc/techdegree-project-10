@@ -11,7 +11,7 @@ class Courses extends Component {
     this.getCourses();
   };
 
-
+  // Fetch courses data from Rest API
   getCourses =  () => {
     this.props.context.data.getCourses('/courses', 'GET')
     .then(responseData => this.setState({courses: responseData}))

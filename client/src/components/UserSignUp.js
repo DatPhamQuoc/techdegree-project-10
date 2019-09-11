@@ -89,6 +89,7 @@ export default class UserSignIn extends Component {
     )
   }
 
+  // Change the state everytime input value updated
   change = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -97,6 +98,7 @@ export default class UserSignIn extends Component {
     })
   }
 
+  // Submmit and create new user
   submit = () =>{
     const { context }= this.props;
 
@@ -137,6 +139,7 @@ export default class UserSignIn extends Component {
 
   }
 
+  // Cancel sign-up and redirect back to main page
   cancel = () => {
     this.props.history.push('/')
   }

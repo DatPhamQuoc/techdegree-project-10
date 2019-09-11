@@ -28,6 +28,10 @@ const userSignUpWithContext = withContext(UserSignUp);
 const userSignInWithContext = withContext(UserSignIn);
 const userSignOutWithContext = withContext(UserSignOut);
 
+
+/*
+  routing
+*/
 export default () => {
   return (
     <Router>

@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import Form from './Form.js'
+
+
 export default class UpdateCourse extends Component {
 
   state = {
@@ -15,6 +17,7 @@ export default class UpdateCourse extends Component {
     this.getCourse()
   }
 
+  // Fetch course data
   getCourse = () => {
     this.props.context.data.getCourses(`/courses/${this.props.match.params.id}`, 'GET')
     .then(responseData => {
@@ -129,7 +132,7 @@ export default class UpdateCourse extends Component {
     )
   }
 
-
+  // Change the state everytime the input value updated
   change = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -138,10 +141,12 @@ export default class UpdateCourse extends Component {
     })
   }
 
+  // Cancel and go back to previous page
   cancel = () => {
     this.props.history.goBack()
   }
 
+  // Submit updated course detail
   submit = () => {
     const { context }= this.props;
 
